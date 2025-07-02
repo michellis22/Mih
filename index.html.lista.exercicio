@@ -2,4 +2,8 @@ let frutas = ["maça", "banana", "caju"];
 console.log(banana[1])
 console.log(maça[0])
 console.log(caju[2])
-
+console.log (estudantes["Ana", "Bruno", "Carlos", "Daniela", "Eduardo"]); console.log(estudante[0])
+console.log (estudantes[0]); // Ana
+console.log (estudante [4]); //Eduardo
+<h2>Aluno</h2>
+<p id="alunos">lista vazia</p>
