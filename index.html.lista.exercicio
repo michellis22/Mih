@@ -1,0 +1,5 @@
+let frutas = ["maça", "banana", "caju"];
+console.log(banana[1])
+console.log(maça[0])
+console.log(caju[2])
+
