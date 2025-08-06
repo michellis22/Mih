@@ -10,7 +10,10 @@ console.log(linguagens[1])
 
 let item = document.querySelector("#lista");
 item.textContent = linguagens[1] + "  " + linguagens[0] + "  " + linguagens[2];
-
+//item.textContent = `${linguagens[0]}, ${linguagens[1]} e ${linguagens[2]}`;
+for (const linguagem of liguagens) {
+    item.innerHTML += `<li>${linguagem}</li>`
+}
 
 let aluno1 = {
     nome: "Gabriel",
