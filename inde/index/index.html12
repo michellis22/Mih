@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>GeoLang - Geografia Política Interativa</title>
+  <style>
+    body {
+      background: #f2f2f2;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      font-family: monospace;
+      font-size: 16px;
+      padding: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    pre {
+      background: #e0e0e0;
+      padding: 15px;
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌍 GeoLang - Linguagem de Geografia Política</h1>
+  <p>Digite comandos GeoLang para obter informações:</p>
+  <textarea id="code">
+// Exemplos:
+// mostrar pais Brasil
+// mostrar continente Europa
+// listar paises América do Sul
+  </textarea>
+  <br>
+  <button onclick="executarGeoLang()">Executar Comandos</button>
+  <pre id="output"></pre>
+
+  <script>
+    const dados = {
+      'Brasil': {
+        continente: 'América do Sul',
+        capital: 'Brasília',
+        governo: 'República presidencialista'
+      },
+      'França': {
+        continente: 'Europa',
+        capital: 'Paris',
+        governo: 'República semipresidencialista'
+      },
+      'Alemanha': {
+        continente: 'Europa',
+        capital: 'Berlim',
+        governo: 'República parlamentarista'
+      },
+      'Argentina': {
+        continente: 'América do Sul',
+        capital: 'Buenos Aires',
+        governo: 'República federal presidencialista'
+      },
+      'Canadá': {
+        continente: 'América do Norte',
+        capital: 'Ottawa',
+        governo: 'Monarquia constitucional'
+      }
+    };
+
+    function executarGeoLang() {
+      const texto = document.getElementById('code').value.trim();
+      const linhas = texto.split('\n');
+      let saida = [];
+
+      for (let linha of linhas) {
+        linha = linha.trim().toLowerCase();
+        if (!linha || linha.startsWith('//')) continue;
+
+        if (linha.startsWith('mostrar pais')) {
+          const nome = linha.replace('mostrar pais', '').trim();
+          const pais = encontrarPais(nome);
+          if (pais) {
+            const info = dados[pais];
+            saida.push(`País: ${pais}\nCapital: ${info.capital}\nContinente: ${info.continente}\nGoverno: ${info.governo}`);
+          } else {
+            saida.push(`País "${nome}" não encontrado.`);
+          }
+        } else if (linha.startsWith('mostrar continente') || linha.startsWith('listar paises')) {
+          const nomeContinente = linha.replace('mostrar continente', '').replace('listar paises', '').trim().toLowerCase();
+          const paises = Object.keys(dados).filter(pais => dados[pais].continente.toLowerCase() === nomeContinente);
+          if (paises.length) {
+            saida.push(`Países da ${nomeContinente.charAt(0).toUpperCase() + nomeContinente.slice(1)}:\n- ${paises.join('\n- ')}`);
+          } else {
+            saida.push(`Continente "${nomeContinente}" não encontrado ou sem dados.`);
+          }
+        } else {
+          saida.push(`Comando inválido: "${linha}"`);
+        }
+      }
+
+      document.getElementById('output').textContent = saida.join('\n\n');
+    }
+
+    function encontrarPais(nome) {
+      nome = nome.toLowerCase();
+      return Object.keys(dados).find(p => p.toLowerCase() === nome);
+    }
+  </script>
+</body>
+</html>
